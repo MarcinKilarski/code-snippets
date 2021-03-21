@@ -15,6 +15,7 @@ function register_new_taxonomies()
         'show_in_rest'         => true,                // Whether to include the taxonomy in the REST API.
         'show_ui'              => true,                // Whether to generate and allow a UI for managing terms in this taxonomy in the admin
         'show_admin_column'    => true,                // Whether to display a column for the taxonomy on its post type listing screens.
+        'custom_capabilities'  => false,
     ]);
 
     register_new_taxonomy([
@@ -25,6 +26,7 @@ function register_new_taxonomies()
         'show_in_rest'         => true,                     // Whether to include the taxonomy in the REST API.
         'show_ui'              => true,                     // Whether to generate and allow a UI for managing terms in this taxonomy in the admin
         'show_admin_column'    => true,                     // Whether to display a column for the taxonomy on its post type listing screens.
+        'custom_capabilities'  => false,
     ]);
 }
 
@@ -63,6 +65,17 @@ function register_new_taxonomy($config) {
         'new_item_name'     => esc_html__( 'New ' . $tax_single_name_titlecase .' Name', 'sage' ),
     ];
 
+    if ($config['custom_capabilities']) {
+        $capabilities = [
+            'manage_terms'  => 'manage_' . $tax_single_name_reg,
+            'edit_terms'    => 'edit_' . $tax_single_name_reg,
+            'delete_terms'  => 'delete_' . $tax_single_name_reg,
+            'assign_terms'  => 'assign_' . $tax_single_name_reg
+        ];
+    } else {
+        $capabilities = '';
+    }
+
     // Taxonomy configuration
     // more options can be found here: https://developer.wordpress.org/reference/functions/register_taxonomy/
     $args = [
@@ -71,7 +84,8 @@ function register_new_taxonomy($config) {
         'show_ui'           => $config['show_ui'], // Whether to generate and allow a UI for managing terms in this taxonomy in the admin
         'show_admin_column' => $config['show_admin_column'], // Whether to display a column for the taxonomy on its post type listing screens.
         'rewrite'           => [ 'slug' => $tax_plural_name_slug ], // set the taxonomy URL slug
-        'labels'            => $labels // taxonomy labels that will be displayed in the CMS
+        'labels'            => $labels, // taxonomy labels that will be displayed in the CMS
+        'capabilities'      => $capabilities,
     ];
 
      // register the taxonomy
