@@ -15,7 +15,7 @@ namespace My_Site\Page_Speed;
  {
      protected $flhm_info_comment = false; // it shows at the bottom of the html how much smaller is the file
      protected $flhm_compress_css = true;
-     protected $flhm_compress_js = false; // 7-1-2021 Martin Kilarski: it causes issue with /complianz-gdpr-premium/integrations/plugins/gravity-forms.php:line=49 comments which us '//' instead of '/* */'
+     protected $flhm_compress_js = false; // it causes an issue if inlined JavaScript comments use '//' instead of '/* */'
      protected $flhm_remove_html_comments = true;
      protected $html;
 
@@ -113,12 +113,12 @@ namespace My_Site\Page_Speed;
 
  function flhm_wp_html_compression_finish($html)
  {
-     return new FLHM_HTML_Compression($html);
+    return new FLHM_HTML_Compression($html);
  }
 
  function flhm_wp_html_compression_start()
  {
-     ob_start('flhm_wp_html_compression_finish');
+    ob_start(__NAMESPACE__ . '\\flhm_wp_html_compression_finish');
  }
 
  // Don't minify HTML for
