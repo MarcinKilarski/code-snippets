@@ -5,7 +5,7 @@ namespace My_Site\Page_Speed;
  * Page Speed Improvement: Defer loading all JavaScript files registered via the wp_enqueue_script() function
  */
 add_filter('script_loader_tag', __NAMESPACE__ . '\\defer_async_scripts', 10);
-function mm_load_scripts_defer_async($tag)
+function defer_async_scripts($tag)
 {
     // Don't do anything if user is logged in as admin
     if (is_admin()) {
