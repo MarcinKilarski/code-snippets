@@ -19,21 +19,23 @@ function defer_async_scripts($tag, $handle, $src)
         return $tag;
     }
 
-    // list of scripts to defer, e.g. my-script
-    $scripts_to_defer = [];
-
-    // defer scripts
-    foreach ($scripts_to_defer as $defer_script) {
-        if (true == strpos($tag, $defer_script)) return '<script defer="defer" src="' . $src . '"></script>';
-    }
-
     // Do not add async to these scripts, e.g. my-script.js
-    $scripts_to_exclude = [];
+    $scripts_to_exclude = [
+        'jquery',
+    ];
 
     // exclude scripts
     foreach ($scripts_to_exclude as $exclude_script) {
         if (true == strpos($tag, $exclude_script)) return $tag;
     }
 
-    return '<script async="async" src="' . $src . '"></script>';
+    // list of scripts to defer, e.g. my-script.js
+    $scripts_to_defer = [];
+
+    // defer scripts
+    foreach ($scripts_to_defer as $defer_script) {
+        if (true == strpos($tag, $defer_script)) return str_replace(' src=', ' defer="defer" src=', $tag);
+    }
+
+    return str_replace(' src=', ' async="async" src=', $tag);
 }
