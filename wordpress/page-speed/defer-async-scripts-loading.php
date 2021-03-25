@@ -9,7 +9,7 @@ function defer_async_scripts($tag, $handle, $src)
 {
     // Finding script handles
     // log handles of all registered scripts
-    // error_log($handle . ': ' . $handle);
+    // error_log('$handle: ' . $handle);
 
     // add script handle to every the script ID
     // return '<script id="' . $handle . '" src="' . $src . '"></script>';
