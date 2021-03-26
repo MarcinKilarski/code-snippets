@@ -9,9 +9,9 @@ function enqueue_frontend_assets()
 {
     // create my own version codes based on when the files were last time modified
     $my_js_ver  = date("ymd-Gis", filemtime( plugin_dir_path( __FILE__ ) . 'my-script.js' ));
-    $my_css_ver = date("ymd-Gis", filemtime( plugin_dir_path( __FILE__ ) . 'my-styles.css' ));
+    $my_css_ver = date("ymd-Gis", filemtime( plugin_dir_path( __FILE__ ) . 'my-style.css' ));
 
-    wp_enqueue_script( 'my-script', plugins_url( 'js/custom.js', __FILE__ ), ['jquery'], $my_js_ver );
-    wp_register_style( 'my-styles', plugins_url( 'style.css', __FILE__ ), false, $my_css_ver );
-    wp_enqueue_style ( 'my_css' );
+    wp_enqueue_script( 'my-script', plugins_url( 'my-script.js', __FILE__ ), ['jquery'], $my_js_ver );
+    wp_register_style( 'my-style', plugins_url( 'my-style.css', __FILE__ ), false, $my_css_ver );
+    wp_enqueue_style ( 'style' );
 }
