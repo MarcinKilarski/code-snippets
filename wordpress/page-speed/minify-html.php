@@ -130,9 +130,10 @@ namespace My_Site\Page_Speed;
 
  if (
      false === strpos(site_url(), $flhm_exclude_domain) &&
-     !is_user_logged_in() &&
-     !wp_doing_cron() &&
-     !wp_doing_ajax()
+     ! is_admin() &&
+     ! is_user_logged_in() &&
+     ! wp_doing_cron() &&
+     ! wp_doing_ajax()
  ) {
      add_action('init', __NAMESPACE__ . '\\flhm_wp_html_compression_start', 1);
  }
