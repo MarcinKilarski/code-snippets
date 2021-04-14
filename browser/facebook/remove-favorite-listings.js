@@ -6,7 +6,7 @@
 const timer = (ms) => new Promise((res) => setTimeout(res, ms)),
     getAllAds = document.querySelectorAll('.bq4bzpyk.j83agx80.btwxx1t3.lhclo0ds.jifvfom9.muag1w35.dlv3wnog.enqfppq2.rl04r1d5 a')
 
-console.log('Found rooms:', getAllAds.length)
+console.log('Number of found ads:', getAllAds.length)
 
 const handleClick = (ad) => {
     let getSaveButton = document.querySelector("div[aria-label='Save']"),
@@ -33,6 +33,6 @@ async function deleteSavedAds() {
     }
 
     const getNewAds = document.querySelectorAll('.bq4bzpyk.j83agx80.btwxx1t3.lhclo0ds.jifvfom9.muag1w35.dlv3wnog.enqfppq2.rl04r1d5 a')
-    console.log('New rooms:', getNewAds.length)
+    console.log('Number of found new ads:', getNewAds.length)
 }
 deleteSavedAds()
