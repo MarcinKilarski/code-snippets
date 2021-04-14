@@ -4,7 +4,7 @@ namespace My_Site\Images;
 /**
  * Update images alt text
  */
-// add_action( 'init', __NAMESPACE__ . '\\update_images_alt_text' );
+add_action( 'init', __NAMESPACE__ . '\\update_images_alt_text' );
 function update_images_alt_text() {
 	// list of images with url and alt text
 	$image_arrays =  [
