@@ -13,23 +13,23 @@ namespace My_Site\User_Roles\Event_Manager;
  * - list of default roles with their cap: https://isabelcastillo.com/list-roles-capabilities-wordpress
  * - deep dive: https://kinsta.com/blog/wordpress-user-roles/
  */
-add_action( 'init', __NAMESPACE__ . '\\add_role' );
-function add_role() {
+add_action( 'init', __NAMESPACE__ . '\\add_user_role' );
+function add_user_role() {
     add_role(
         'event_manager',
         'Event manager',
-        array(
+        [
             'read'      => true,
             'level_0'   => true,
-        )
+				]
     );
 }
 
 /**
  * Add capabilities
  */
-add_action( 'admin_init', __NAMESPACE__ . '\\modify_role');
-function modify_role() {
+add_action( 'admin_init', __NAMESPACE__ . '\\modify_user_role');
+function modify_user_role() {
     $role = get_role( 'event_manager' );
 
     // access to webinars CPT
