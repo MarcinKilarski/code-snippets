@@ -22,6 +22,7 @@ function register_new_custom_post_types()
             // 'author',
             // 'comments',
         ],
+        'custom_cap' => false,
     ]);
 
     register_new_custom_post_type([
@@ -39,6 +40,7 @@ function register_new_custom_post_types()
             // 'author',
             // 'comments',
         ],
+        'custom_cap' => false,
     ]);
 }
 
@@ -58,8 +60,10 @@ function register_new_custom_post_type($config)
     $cpt_plural_name_lowercase = strtolower(trim($cpt_plural_name));
     $cpt_single_name_titlecase = ucwords($cpt_single_name_lowercase);                // Convert the first character of each word to uppercase
     $cpt_plural_name_titlecase = ucwords($cpt_plural_name_lowercase);                // Convert the first character of each word to uppercase
+    // $cpt_single_name_slug      = str_replace(" ", "-", $cpt_single_name_lowercase);
     $cpt_plural_name_slug      = str_replace(" ", "-", $cpt_plural_name_lowercase);
     $cpt_single_name_reg      = str_replace(" ", "_", $cpt_single_name_lowercase);
+    $cpt_plural_name_reg      = str_replace(" ", "_", $cpt_plural_name_lowercase);
 
     // CPT labels that will be displayed in the CMS
     $labels = [
@@ -91,12 +95,17 @@ function register_new_custom_post_type($config)
 
     // more options can be found here: https://developer.wordpress.org/reference/functions/register_post_type/
     $args = [
-        'public'       => $config['public'],                     // Whether a post type is intended for use publicly either via the admin interface or by front-end users.
-        'show_in_rest' => $config['show_in_rest'],
-        'menu_icon'    => $config['menu_icon'],                  // https://developer.wordpress.org/resource/dashicons/
-        'supports'     => $config['supports'],
-        'labels'       => $labels,
-        'rewrite'      => [ 'slug' => $cpt_plural_name_slug ],   // Triggers the handling of rewrites for this post type
+        'public'          => $config['public'],                     	// Whether a post type is intended for use publicly either via the admin interface or by front-end users.
+        'show_in_rest'    => $config['show_in_rest'],
+        'menu_icon'       => $config['menu_icon'],                    // https://developer.wordpress.org/resource/dashicons/
+        'supports'        => $config['supports'],
+        'labels'          => $labels,
+        'rewrite'         => [ 'slug' => $cpt_plural_name_slug ],     // Triggers the handling of rewrites for this post type
+        'capability_type' => $config['custom_cap'] ? [ 								// if custom_cap is set to true, set custom capability_type
+					$cpt_single_name_reg,
+					$cpt_plural_name_reg
+				] : 'post',
+				'map_meta_cap' => $config['custom_cap'] ? true : false,   		// if custom_cap is set to true, map meta cap
     ];
 
     // register the CPT
