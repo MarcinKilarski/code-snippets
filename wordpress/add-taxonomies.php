@@ -10,13 +10,13 @@ function register_new_taxonomies()
     register_new_taxonomy([
         'single_name'          => 'Case category',
         'plural_name'          => 'Case categories',
-        'assign_to_post_types' => ['case'],            // if a CPT has multiple words in the name, use underscores instead of a space between words, e.g. 'team_member'
-        'hierarchical'         => true,                // true = like post categories, false = like post tags
-        'show_in_rest'         => true,                // Whether to include the taxonomy in the REST API.
-        'show_ui'              => true,                // Whether to generate and allow a UI for managing terms in this taxonomy in the admin
-        'show_admin_column'    => true,                // Whether to display a column for the taxonomy on its post type listing screens.
-        'custom_capabilities'  => true,                // Whether users need custom permissions to manage this taxonomy
-    ]);
+        'assign_to_post_types' => ['case'],            			// if a CPT has multiple words in the name, use underscores instead of a space between words, e.g. 'team_member'
+        'hierarchical'         => true,                			// true = like post categories, false = like post tags
+        'show_in_rest'         => true,                			// Whether to include the taxonomy in the REST API.
+        'show_ui'              => true,                			// Whether to generate and allow a UI for managing terms in this taxonomy in the admin
+        'show_admin_column'    => true,                			// Whether to display a column for the taxonomy on its post type listing screens.
+        'custom_cap'  				 => true,                			// Whether users need custom permissions to manage this taxonomy
+				]);
 
     register_new_taxonomy([
         'single_name'          => 'Resource category',
@@ -26,7 +26,7 @@ function register_new_taxonomies()
         'show_in_rest'         => true,                     // Whether to include the taxonomy in the REST API.
         'show_ui'              => true,                     // Whether to generate and allow a UI for managing terms in this taxonomy in the admin
         'show_admin_column'    => true,                     // Whether to display a column for the taxonomy on its post type listing screens.
-        'custom_capabilities'  => false,                    // Whether users need custom permissions to manage this taxonomy
+        'custom_cap'  			   => false,                    // Whether users need custom permissions to manage this taxonomy
     ]);
 }
 
@@ -67,7 +67,7 @@ function register_new_taxonomy($config)
     ];
 
     // Whether users need custom permissions to manage this taxonomy
-    if ($config['custom_capabilities']) {
+    if ($config['custom_cap']) {
         $capabilities = [
             'manage_terms'  => 'manage_' . $tax_single_name_reg,
             'edit_terms'    => 'edit_' . $tax_single_name_reg,
@@ -79,13 +79,13 @@ function register_new_taxonomy($config)
     // Taxonomy configuration
     // more options can be found here: https://developer.wordpress.org/reference/functions/register_taxonomy/
     $args = [
-        'hierarchical'      => $config['hierarchical'], // true = like post categories, false = like post tags
-        'show_in_rest'      => $config['show_in_rest'], // Whether to include the taxonomy in the REST API.
-        'show_ui'           => $config['show_ui'], // Whether to generate and allow a UI for managing terms in this taxonomy in the admin
-        'show_admin_column' => $config['show_admin_column'], // Whether to display a column for the taxonomy on its post type listing screens.
+        'hierarchical'      => $config['hierarchical'], 						// true = like post categories, false = like post tags
+        'show_in_rest'      => $config['show_in_rest'], 						// Whether to include the taxonomy in the REST API.
+        'show_ui'           => $config['show_ui'], 									// Whether to generate and allow a UI for managing terms in this taxonomy in the admin
+        'show_admin_column' => $config['show_admin_column'], 				// Whether to display a column for the taxonomy on its post type listing screens.
         'rewrite'           => [ 'slug' => $tax_plural_name_slug ], // set the taxonomy URL slug
-        'labels'            => $labels, // taxonomy labels that will be displayed in the CMS
-        'capabilities'      => $capabilities ?? [],
+        'labels'            => $labels, 														// taxonomy labels that will be displayed in the CMS
+        'capabilities'      => $capabilities ?? [],									// Whether to add custom capabilities to this taxonomy
     ];
 
      // register the taxonomy
