@@ -1,5 +1,5 @@
 <?php
-namespace My_Site\User_Roles\Event_Manager;
+namespace My_Site\User_Roles;
 
 /**
  * Remove role
