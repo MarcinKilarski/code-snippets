@@ -73,6 +73,16 @@ function modify_user_role() {
 			$role->add_cap( 'delete_topics' );
 			$role->add_cap( 'assign_topics' );
 
+			// access to only assign resource accesses taxonomy
+			$role->add_cap( 'manage_resource_access', false );
+			$role->add_cap( 'edit_resource_access', false );
+			$role->add_cap( 'delete_resource_access', false );
+			$role->add_cap( 'assign_resource_access' );
+			$role->add_cap( 'manage_resource_accessies', false );
+			$role->add_cap( 'edit_resource_accessies', false );
+			$role->add_cap( 'delete_resource_accessies', false );
+			$role->add_cap( 'assign_resource_accessies' );
+
 			// access to media library
 			$role->add_cap( 'upload_files' );
 		}
